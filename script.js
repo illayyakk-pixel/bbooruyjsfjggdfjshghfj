@@ -120,25 +120,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 🪟 Popup
   function showPopup(company) {
-    const popup = document.getElementById("popup");
-    const popupBody = document.getElementById("popupBody");
+  const popup = document.getElementById("popup");
+  const popupBody = document.getElementById("popupBody");
 
-    if (!popup || !popupBody) return;
+  if (!popup || !popupBody) return;
 
-    const colorClass = company.rating === "green" ? "green" : "red";
-    const label = company.rating === "green" ? "Green" : "Red";
+  const colorClass = company.rating === "green" ? "green" : "red";
+  const label = company.rating === "green" ? "Green" : "Red";
 
-    popupBody.innerHTML = `
-      <strong>${company.name}</strong>
-      <p>${company.description}</p>
-    `;
+  popupBody.innerHTML = `
+    ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
 
-    popup.classList.remove("hidden");
+    <div>
+      <span class="circle ${colorClass}"></span>
+      <strong>${label}</strong>
+    </div>
 
-    document.getElementById("closeBtn").onclick = () => {
-      popup.classList.add("hidden");
-    };
-  }
+    <p>${company.description}</p>
+
+    ${Array.isArray(company.products) ? `
+      <h4>Products:</h4>
+      <ul>
+        ${company.products.map(p => `<li>${p}</li>`).join("")}
+      </ul>
+    ` : ""}
+
+    ${company.notes ? `<p><strong>Notes:</strong> ${company.notes}</p>` : ""}
+  `;
+
+  popup.classList.remove("hidden");
+
+  document.getElementById("closeBtn").onclick = () => {
+    popup.classList.add("hidden");
+  };
+}
 
   // ESC closes popup
   document.addEventListener("keydown", function (e) {
