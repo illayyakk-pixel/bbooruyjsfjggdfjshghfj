@@ -32,14 +32,21 @@ document.addEventListener("click", function (e) {
   const headers = lines[0].split(",");
 
   return lines.slice(1).map(line => {
-    const values = line.split(",");
+
+    // 🔥 FIX: handle quoted values
+    const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
 
     const obj = {};
     headers.forEach((h, i) => {
-      obj[h.trim()] = values[i]?.trim();
+      let value = values[i] || "";
+
+      // remove quotes
+      value = value.replace(/^"|"$/g, "").trim();
+
+      obj[h.trim()] = value;
     });
 
-    // Convert products string → array
+    // Convert products → array
     if (obj.products) {
       obj.products = obj.products.split(",").map(p => p.trim());
     }
