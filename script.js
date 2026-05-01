@@ -152,6 +152,7 @@ if (lastUpdatedEl && cachedTime) {
 
     if (resultsList) {
 
+      resultsList.innerHTML = "";
       const params = new URLSearchParams(window.location.search);
 
       const search = (params.get("search") || "").trim();
