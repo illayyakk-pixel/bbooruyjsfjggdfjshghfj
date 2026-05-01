@@ -24,53 +24,63 @@ const searchInput = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
 // Suggestions (homepage)
-if (searchInput && suggestions) {
-  searchInput.addEventListener("input", function () {
-    const value = this.value.trim();
-suggestions.innerHTML = "";
+function initApp() {
 
-if (value === "") {
-  suggestions.style.display = "none";
-  return;
-}
+  const searchInput = document.getElementById("searchInput");
+  const suggestions = document.getElementById("suggestions");
 
-let selectedCategory = "all";
-const categoryEl = document.getElementById("categoryFilter");
-if (categoryEl) {
-  selectedCategory = categoryEl.value;
-}
+  if (searchInput && suggestions) {
+    searchInput.addEventListener("input", function () {
+      const value = this.value.trim();
+      suggestions.innerHTML = "";
 
-const results = companies.filter(function (c) {
-  const nameMatch = normalize(c.name).includes(normalize(value));
-  const categoryMatch =
-    selectedCategory === "all" || c.category === selectedCategory;
+      if (value === "") {
+        suggestions.style.display = "none";
+        return;
+      }
 
-  return nameMatch && categoryMatch;
-});
+      let selectedCategory = "all";
+      const categoryEl = document.getElementById("categoryFilter");
+      if (categoryEl) {
+        selectedCategory = categoryEl.value;
+      }
 
-if (results.length === 0) {
-  suggestions.style.display = "none";
-  return;
-}
+      const results = companies.filter(function (c) {
+        const nameMatch = normalize(c.name).includes(normalize(value));
+        const categoryMatch =
+          selectedCategory === "all" || c.category === selectedCategory;
 
-suggestions.style.display = "block";
+        return nameMatch && categoryMatch;
+      });
 
-results.slice(0, 5).forEach(function (company) {
-  const li = document.createElement("li");
+      if (results.length === 0) {
+        suggestions.style.display = "none";
+        return;
+      }
 
-  const colorClass = company.rating === "green" ? "green" : "red";
+      suggestions.style.display = "block";
 
-  li.innerHTML = `
-    <span class="circle ${colorClass}"></span>
-    ${company.name}
-  `;
+      results.slice(0, 5).forEach(function (company) {
+        const li = document.createElement("li");
 
-  li.onclick = function () {
-    window.location.href =
-      "results.html?search=" + company.name + "&category=" + selectedCategory;
-  };
+        const colorClass = company.rating === "green" ? "green" : "red";
 
-  suggestions.appendChild(li);
+        li.innerHTML = `
+          <span class="circle ${colorClass}"></span>
+          ${company.name}
+        `;
+
+        li.onclick = function () {
+          window.location.href =
+            "results.html?search=" + company.name + "&category=" + selectedCategory;
+        };
+
+        suggestions.appendChild(li);
+      });
+    });
+  }
+
+  // 👉 DO THE SAME FOR RESULTS PAGE LOGIC IF YOU HAVE IT
 });
   });
 
