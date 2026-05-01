@@ -65,7 +65,15 @@ if (resultsList) {
     const searchInput = document.getElementById("searchInput");
     const suggestions = document.getElementById("suggestions");
     const categoryFilter = document.getElementById("categoryFilter");
+const lastUpdatedEl = document.getElementById("lastUpdated");
+const cachedTime = localStorage.getItem("companiesDataTime");
 
+if (lastUpdatedEl && cachedTime) {
+  const date = new Date(parseInt(cachedTime));
+  lastUpdatedEl.textContent = "Last updated: " + date.toLocaleTimeString();
+}
+
+    
     // 🔍 Suggestions
     if (searchInput && suggestions) {
 
