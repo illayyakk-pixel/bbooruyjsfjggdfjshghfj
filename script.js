@@ -81,7 +81,7 @@ if (value === "" && selectedCategory === "all") {
 
           li.onclick = function () {
             window.location.href =
-              "results.html?search=" + company.name;
+              "results.html?search=" + company.name + "&category=" + selectedCategory;
           };
 
           suggestions.appendChild(li);
@@ -102,16 +102,29 @@ if (value === "" && selectedCategory === "all") {
     if (resultsList) {
       const params = new URLSearchParams(window.location.search);
       const search = (params.get("search") || "").trim();
+      const category = (params.get("category") || "all").toLowerCase().trim();
 
       const filtered = companies.filter(c => {
 
-  const nameMatch = normalize(c.name).includes(normalize(search));
+  const hasSearch = search !== "";
+
+  const nameMatch =
+    hasSearch && normalize(c.name).includes(normalize(search));
 
   const productMatch =
+    hasSearch &&
     Array.isArray(c.products) &&
     c.products.some(p => normalize(p).includes(normalize(search)));
 
-  return nameMatch || productMatch;
+  const categoryMatch =
+    category === "all" ||
+    (c.category && c.category.toLowerCase() === category);
+
+  if (!hasSearch) {
+    return categoryMatch;
+  }
+
+  return (nameMatch || productMatch) && categoryMatch;
 });
 
       if (filtered.length === 0) {
@@ -139,8 +152,10 @@ if (value === "" && selectedCategory === "all") {
 
   // 🔘 Navigation
   window.goToResults = function () {
-    const query = document.getElementById("searchInput")?.value.trim() || "";
-    window.location.href = "results.html?search=" + query;
+    const category = document.getElementById("categoryFilter")?.value || "all";
+
+window.location.href =
+  "results.html?search=" + query + "&category=" + category;
   };
 
   window.goHome = function () {
