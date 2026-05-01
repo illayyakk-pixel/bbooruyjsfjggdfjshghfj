@@ -1,4 +1,6 @@
 // Normalize (for search)
+document.addEventListener("DOMContentLoaded", function () {
+
 function normalize(str) {
   return str
     .toLowerCase()
@@ -211,4 +213,5 @@ document.addEventListener("keydown", function (e) {
     popup.classList.add("hidden");
   };
 }
+});
 });
