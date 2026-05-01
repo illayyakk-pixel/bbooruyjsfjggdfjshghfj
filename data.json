@@ -10,36 +10,3 @@
     
   }
 ]
-
-[
-  {
-    "name": "Patagonia",
-    "category": "clothing",
-    "rating": "green",
-    "description": "...",
-    "products": ["KitKat", "Nescafé"],
-    "notes": "..."
-  }
-]
-
-[
-  {
-    "name": "Nestlé",
-    "category": "food",
-    "rating": "red",
-    "description": "...",
-    "products": ["KitKat", "Nescafé"],
-    "notes": "..."
-  }
-]
-
-[
-  {
-    "name": "Nestlé",
-    "category": "food",
-    "rating": "red",
-    "description": "...",
-    "products": ["KitKat", "Nescafé"],
-    "notes": "..."
-  }
-]
