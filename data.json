@@ -1,10 +1,8 @@
-[
+const companies = [
   {
-    "name": "Test Company",
-    "category": "food",
-    "rating": "green",
-    "description": "Test description",
-    "products": ["Test Product"],
-    "notes": "Test note"
+    name: "Test Company",
+    category: "food",
+    rating: "green",
+    description: "Test description"
   }
-]
+];
