@@ -57,6 +57,10 @@ if (resultsList) {
       obj.products = obj.products.split(",").map(p => p.trim());
     }
 
+    if (obj.category) {
+  obj.category = obj.category.split(",").map(c => c.trim().toLowerCase());
+}
+
     return obj;
   });
 }
