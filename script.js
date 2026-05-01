@@ -1,5 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+document.addEventListener("click", function (e) {
+  const suggestions = document.getElementById("suggestions");
+  const searchInput = document.getElementById("searchInput");
+
+  if (!suggestions || !searchInput) return;
+
+  if (!searchInput.contains(e.target) && !suggestions.contains(e.target)) {
+    suggestions.style.display = "none";
+  }
+});
+  
   function normalize(str) {
     return str.toLowerCase()
       .normalize("NFD")
@@ -81,7 +92,10 @@ document.addEventListener("DOMContentLoaded", function () {
       searchInput.addEventListener("input", updateSuggestions);
 
       if (categoryFilter) {
-        categoryFilter.addEventListener("change", updateSuggestions);
+        categoryFilter.addEventListener("change", function () {
+  suggestions.style.display = "none";
+  updateSuggestions();
+});
       }
 
       searchInput.addEventListener("keydown", function (e) {
@@ -110,8 +124,8 @@ document.addEventListener("DOMContentLoaded", function () {
           (c.category && c.category.toLowerCase() === category);
 
         if (!hasSearch) {
-          return categoryMatch;
-        }
+  return false; // prevents dropdown when only category is selected
+}
 
         const nameMatch = normalize(c.name).includes(normalize(search));
 
