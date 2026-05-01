@@ -41,9 +41,12 @@ if (value === "" && selectedCategory === "all") {
 
        const results = companies.filter(c => {
 
-  const nameMatch = normalize(c.name).includes(normalize(value));
+  const hasSearch = value !== "";
+
+  const nameMatch = hasSearch && normalize(c.name).includes(normalize(value));
 
   const productMatch =
+    hasSearch &&
     Array.isArray(c.products) &&
     c.products.some(p => normalize(p).includes(normalize(value)));
 
@@ -51,7 +54,8 @@ if (value === "" && selectedCategory === "all") {
     selectedCategory === "all" ||
     (c.category && c.category.toLowerCase() === selectedCategory.toLowerCase());
 
-  if (value === "") {
+  // 🔑 KEY FIX
+  if (!hasSearch) {
     return categoryMatch;
   }
 
