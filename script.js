@@ -84,9 +84,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const params = new URLSearchParams(window.location.search);
       const search = (params.get("search") || "").trim();
 
-      const filtered = companies.filter(c =>
-        normalize(c.name).includes(normalize(search))
-      );
+      const filtered = companies.filter(c => {
+
+  const nameMatch = normalize(c.name).includes(normalize(search));
+
+  const productMatch =
+    Array.isArray(c.products) &&
+    c.products.some(p => normalize(p).includes(normalize(search)));
+
+  return nameMatch || productMatch;
+});
 
       if (filtered.length === 0) {
         resultsList.innerHTML = "<p>No companies found.</p>";
