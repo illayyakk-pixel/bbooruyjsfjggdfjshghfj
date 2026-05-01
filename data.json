@@ -3,33 +3,27 @@
     "name": "Nestlé",
     "category": "food",
     "rating": "red",
-    "description": "...",
+    "description": "Concerns over water usage",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/2/21/Nestle_logo.svg",
     "products": ["KitKat", "Nescafé"],
-    "notes": "..."
-  }
-]
-
-[
+    "notes": "Water controversies"
+  },
   {
     "name": "IKEA",
-    "category": "furniture",
+    "category": "home",
     "rating": "green",
-    "description": "...",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/2/21/Nestle_logo.svg",
-    "products": ["Ikea restaurant", "Ikea furniture"],
-    "notes": "..."
-  }
-]
-
-[
+    "description": "Sustainability efforts improving",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Ikea_logo.svg",
+    "products": ["Furniture", "Home decor"],
+    "notes": "Some environmental concerns remain"
+  },
   {
     "name": "Apple",
     "category": "technology",
-    "rating": "red",
-    "description": "...",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/2/21/Nestle_logo.svg",
-    "products": ["iPhone", "iPad"],
-    "notes": "..."
+    "rating": "green",
+    "description": "Strong environmental initiatives",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+    "products": ["iPhone", "MacBook"],
+    "notes": "Supply chain issues in past"
   }
 ]
