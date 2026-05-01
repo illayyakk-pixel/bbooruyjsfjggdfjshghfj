@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let selectedCategory = "all";
 const categoryEl = document.getElementById("categoryFilter");
 if (categoryEl) {
-  selectedCategory = categoryEl.value;
+  selectedCategory = categoryEl ? categoryEl.value.toLowerCase().trim() : "all";
 }
 
 // If BOTH empty input AND "all" category → do nothing
