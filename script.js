@@ -19,12 +19,34 @@ document.addEventListener("click", function (e) {
 
   let companies = [];
 
-  fetch("data.json")
-    .then(res => res.json())
-    .then(data => {
-      companies = data;
-      init();
+  fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSgCX7yjBf65usJKdHP6YbfSQd4Ru3it7KvyKde6SN7SIxdH9vln-tCws3ulVidW1wpvlAoL0MtlNHA/pub?output=csv")
+  .then(res => res.text())
+  .then(csv => {
+    companies = parseCSV(csv);
+    init();
+  });
+
+  function parseCSV(csv) {
+  const lines = csv.split("\n").map(l => l.trim()).filter(l => l);
+
+  const headers = lines[0].split(",");
+
+  return lines.slice(1).map(line => {
+    const values = line.split(",");
+
+    const obj = {};
+    headers.forEach((h, i) => {
+      obj[h.trim()] = values[i]?.trim();
     });
+
+    // Convert products string → array
+    if (obj.products) {
+      obj.products = obj.products.split(",").map(p => p.trim());
+    }
+
+    return obj;
+  });
+}
 
   function init() {
 
