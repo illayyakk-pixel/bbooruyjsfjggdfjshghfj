@@ -92,6 +92,7 @@ ul {
   transform: translateX(-50%);
   width: 70%;
   max-width: 400px;
+  z-index: 1000;
 
   background: white;
   border-radius: 8px;
