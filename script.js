@@ -109,13 +109,10 @@ if (resultsList) {
   const search = (params.get("search") || "").trim();
   const category = params.get("category") || "all";
 
-  const filtered = companies.filter(function (c) {
-    const nameMatch = normalize(c.name).includes(normalize(search));
-    const categoryMatch =
-      category === "all" || c.category === category;
-
-    return nameMatch && categoryMatch;
-  });
+const filtered = companies.filter(function (c) {
+  const nameMatch = normalize(c.name).includes(normalize(search));
+  return nameMatch;
+});
 
   if (filtered.length === 0) {
     resultsList.innerHTML = "<p>No companies found.</p>";
