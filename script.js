@@ -93,8 +93,9 @@ if (lastUpdatedEl && cachedTime) {
         const results = companies.filter(c => {
 
           const categoryMatch =
-            selectedCategory === "all" ||
-            (c.category && c.category.toLowerCase() === selectedCategory);
+  selectedCategory === "all" ||
+  (Array.isArray(c.category) &&
+   c.category.includes(selectedCategory));
 
           if (!hasSearch) {
   return false; // prevents dropdown when only category is selected
