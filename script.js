@@ -8,7 +8,7 @@ function normalize(str) {
 
 let companies = [];
 
-fetch("data.json")
+fetch("./data.json")
   .then(res => res.json())
   .then(data => {
     companies = data;
