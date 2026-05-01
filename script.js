@@ -198,6 +198,11 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("closeBtn").onclick = () => {
       popup.classList.add("hidden");
     };
+    popup.onclick = function (e) {
+  if (e.target === popup) {
+    popup.classList.add("hidden");
+  }
+};
   }
 
   // ESC closes popup
