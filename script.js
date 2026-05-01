@@ -48,11 +48,11 @@ if (value === "" && selectedCategory === "all") {
     c.products.some(p => normalize(p).includes(normalize(value)));
 
   const categoryMatch =
-    selectedCategory === "all" || c.category === selectedCategory;
+    selectedCategory === "all" ||
+    (c.category && c.category.toLowerCase() === selectedCategory.toLowerCase());
 
-  // 🔑 Key logic:
   if (value === "") {
-    return categoryMatch; // only filter by category
+    return categoryMatch;
   }
 
   return (nameMatch || productMatch) && categoryMatch;
