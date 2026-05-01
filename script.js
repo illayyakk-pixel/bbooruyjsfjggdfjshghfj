@@ -37,12 +37,9 @@ if (categoryEl) {
   selectedCategory = categoryEl.value;
 }
 
-const results = companies.filter(function (c) {
-  const nameMatch = normalize(c.name).includes(normalize(value));
-  const categoryMatch =
-    selectedCategory === "all" || c.category === selectedCategory;
-
-  return nameMatch && categoryMatch;
+const filtered = companies.filter(function (c) {
+  const nameMatch = normalize(c.name).includes(normalize(search));
+  return nameMatch;
 });
 
 if (results.length === 0) {
