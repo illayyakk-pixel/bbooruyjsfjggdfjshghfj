@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company Directory</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div style="padding:15px; background:white; border-bottom:1px solid #eee;">
+    <strong>Company Checker</strong>
+  </div>
+
+  <div class="navbar">
+    <span class="logo" onclick="goHome()">Company Checker</span>
+  </div>
+
+  <div class="container">
+    <h1>Company Checker</h1>
+
+    <div class="search-box">
+      <input type="text" id="searchInput">
+      <ul id="suggestions"></ul>
+    </div>
+
+    <ul id="suggestions"></ul>
+
+    <select id="categoryFilter">
+      <option value="all">All Categories</option>
+      <option value="food">Food</option>
+      <option value="clothing">Clothing</option>
+      <option value="energy">Energy</option>
+      <option value="home">Home</option>
+    </select>
+
+    <button onclick="goToResults()">Search</button>
+
+    <ul id="suggestions"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+[
+  {
+    "name": "Nestlé",
+    "category": "food",
+    "rating": "red",
+    "description": "Concerns over water usage and labor practices.",
+    "products": ["KitKat", "Nescafé"],
+    "logo": "https://logos-world.net/wp-content/uploads/2020/05/Patagonia-Logo.png",
+    "notes": "Criticized for water privatization."
+    
+  }
+]
+
+[
+  {
+    "name": "Patagonia",
+    "category": "clothing",
+    "rating": "green",
+    "description": "...",
+    "products": ["KitKat", "Nescafé"],
+    "notes": "..."
+  }
+]
+
+[
+  {
+    "name": "Nestlé",
+    "category": "food",
+    "rating": "red",
+    "description": "...",
+    "products": ["KitKat", "Nescafé"],
+    "notes": "..."
+  }
+]
+
+[
+  {
+    "name": "Nestlé",
+    "category": "food",
+    "rating": "red",
+    "description": "...",
+    "products": ["KitKat", "Nescafé"],
+    "notes": "..."
+  }
+]

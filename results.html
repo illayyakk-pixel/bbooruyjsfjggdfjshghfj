@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div style="padding:15px; background:white; border-bottom:1px solid #eee;">
+    <strong>Company Checker</strong>
+  </div>
+
+  <div class="navbar">
+    <span class="logo" onclick="goHome()">Company Checker</span>
+  </div>
+
+  <button onclick="goBack()">← Back</button>
+
+  <div class="container">
+    <h2>Results</h2>
+    <ul id="resultsList"></ul>
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup hidden" tabindex="-1">
+    <div class="popup-content">
+      <span id="closeBtn" class="close-btn">&times;</span>
+      <div id="popupBody"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
