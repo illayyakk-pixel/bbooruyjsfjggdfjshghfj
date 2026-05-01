@@ -11,8 +11,10 @@ let companies = [];
 fetch("./data.json")
   .then(res => res.json())
   .then(data => {
+    console.log("DATA LOADED:", data);
     companies = data;
-  });
+  })
+  .catch(err => console.error("FETCH ERROR:", err));
 
 // Homepage elements
 const searchInput = document.getElementById("searchInput");
