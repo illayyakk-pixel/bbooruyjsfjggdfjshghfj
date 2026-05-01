@@ -27,12 +27,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const value = this.value.trim();
         suggestions.innerHTML = "";
 
-        if (value === "") {
-          suggestions.style.display = "none";
-          return;
-        }
+        let selectedCategory = "all";
+const categoryEl = document.getElementById("categoryFilter");
+if (categoryEl) {
+  selectedCategory = categoryEl.value;
+}
 
-        const results = companies.filter(c => {
+// If BOTH empty input AND "all" category → do nothing
+if (value === "" && selectedCategory === "all") {
+  suggestions.style.display = "none";
+  return;
+}
+
+       const results = companies.filter(c => {
 
   const nameMatch = normalize(c.name).includes(normalize(value));
 
@@ -40,7 +47,15 @@ document.addEventListener("DOMContentLoaded", function () {
     Array.isArray(c.products) &&
     c.products.some(p => normalize(p).includes(normalize(value)));
 
-  return nameMatch || productMatch;
+  const categoryMatch =
+    selectedCategory === "all" || c.category === selectedCategory;
+
+  // 🔑 Key logic:
+  if (value === "") {
+    return categoryMatch; // only filter by category
+  }
+
+  return (nameMatch || productMatch) && categoryMatch;
 });
 
         if (results.length === 0) {
