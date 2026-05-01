@@ -32,9 +32,16 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
 
-        const results = companies.filter(c =>
-          normalize(c.name).includes(normalize(value))
-        );
+        const results = companies.filter(c => {
+
+  const nameMatch = normalize(c.name).includes(normalize(value));
+
+  const productMatch =
+    Array.isArray(c.products) &&
+    c.products.some(p => normalize(p).includes(normalize(value)));
+
+  return nameMatch || productMatch;
+});
 
         if (results.length === 0) {
           suggestions.style.display = "none";
