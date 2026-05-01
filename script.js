@@ -24,14 +24,59 @@ document.addEventListener("DOMContentLoaded", function () {
     if (searchInput && suggestions) {
       searchInput.addEventListener("input", function () {
 
-        const value = this.value.trim();
-        suggestions.innerHTML = "";
+  const value = this.value.trim();
+  suggestions.innerHTML = "";
 
-        let selectedCategory = "all";
-const categoryEl = document.getElementById("categoryFilter");
-if (categoryEl) {
-  selectedCategory = categoryEl ? categoryEl.value.toLowerCase().trim() : "all";
-}
+  const categoryEl = document.getElementById("categoryFilter");
+  const selectedCategory = categoryEl ? categoryEl.value.toLowerCase() : "all";
+
+  const hasSearch = value !== "";
+
+  const results = companies.filter(c => {
+
+    const categoryMatch =
+      selectedCategory === "all" ||
+      (c.category && c.category.toLowerCase() === selectedCategory);
+
+    if (!hasSearch) {
+      return categoryMatch;
+    }
+
+    const nameMatch = normalize(c.name).includes(normalize(value));
+
+    const productMatch =
+      Array.isArray(c.products) &&
+      c.products.some(p => normalize(p).includes(normalize(value)));
+
+    return (nameMatch || productMatch) && categoryMatch;
+  });
+
+  if (results.length === 0) {
+    suggestions.style.display = "none";
+    return;
+  }
+
+  suggestions.style.display = "block";
+
+  results.slice(0, 5).forEach(company => {
+    const li = document.createElement("li");
+
+    const colorClass = company.rating === "green" ? "green" : "red";
+
+    li.innerHTML = `
+      <span class="circle ${colorClass}"></span>
+      ${company.name}
+    `;
+
+    li.onclick = function () {
+      window.location.href =
+        "results.html?search=" + encodeURIComponent(company.name) +
+        "&category=" + selectedCategory;
+    };
+
+    suggestions.appendChild(li);
+  });
+});
 
 // If BOTH empty input AND "all" category → do nothing
 if (value === "" && selectedCategory === "all") {
@@ -100,21 +145,14 @@ if (value === "" && selectedCategory === "all") {
     const resultsList = document.getElementById("resultsList");
 
     if (resultsList) {
-      const params = new URLSearchParams(window.location.search);
-      const search = (params.get("search") || "").trim();
-      const category = (params.get("category") || "all").toLowerCase().trim();
+const params = new URLSearchParams(window.location.search);
 
-      const filtered = companies.filter(c => {
+const search = (params.get("search") || "").trim();
+const category = (params.get("category") || "all").toLowerCase();
 
-  const hasSearch = search !== "";
+const hasSearch = search !== "";
 
-  const nameMatch =
-    hasSearch && normalize(c.name).includes(normalize(search));
-
-  const productMatch =
-    hasSearch &&
-    Array.isArray(c.products) &&
-    c.products.some(p => normalize(p).includes(normalize(search)));
+const filtered = companies.filter(c => {
 
   const categoryMatch =
     category === "all" ||
@@ -124,35 +162,45 @@ if (value === "" && selectedCategory === "all") {
     return categoryMatch;
   }
 
+  const nameMatch = normalize(c.name).includes(normalize(search));
+
+  const productMatch =
+    Array.isArray(c.products) &&
+    c.products.some(p => normalize(p).includes(normalize(search)));
+
   return (nameMatch || productMatch) && categoryMatch;
 });
 
-      if (filtered.length === 0) {
-        resultsList.innerHTML = "<p>No companies found.</p>";
-      }
+if (filtered.length === 0) {
+  resultsList.innerHTML = "<p>No companies found.</p>";
+}
 
-      filtered.forEach(company => {
-        const li = document.createElement("li");
+filtered.forEach(company => {
+  const li = document.createElement("li");
 
-        const colorClass = company.rating === "green" ? "green" : "red";
+  const colorClass = company.rating === "green" ? "green" : "red";
 
-        li.innerHTML = `
-          <span class="circle ${colorClass}"></span>
-          ${company.name}
-        `;
+  li.innerHTML = `
+    <span class="circle ${colorClass}"></span>
+    ${company.name}
+  `;
 
-        li.onclick = function () {
-          showPopup(company);
-        };
+  li.onclick = function () {
+    showPopup(company);
+  };
 
-        resultsList.appendChild(li);
-      });
-    }
-  }
+  resultsList.appendChild(li);
+});
 
   // 🔘 Navigation
-  window.goToResults = function () {
-    const category = document.getElementById("categoryFilter")?.value || "all";
+window.goToResults = function () {
+  const query = document.getElementById("searchInput")?.value.trim() || "";
+  const category = document.getElementById("categoryFilter")?.value || "all";
+
+  window.location.href =
+    "results.html?search=" + encodeURIComponent(query) +
+    "&category=" + category;
+};
 
 window.location.href =
   "results.html?search=" + query + "&category=" + category;
