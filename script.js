@@ -194,4 +194,21 @@ document.addEventListener("keydown", function (e) {
       popup.classList.add("hidden");
     }
   }
+  function showPopup(company) {
+  const popup = document.getElementById("popup");
+  const popupBody = document.getElementById("popupBody");
+
+  if (!popup || !popupBody) return;
+
+  popupBody.innerHTML = `
+    <strong>${company.name}</strong>
+    <p>${company.description}</p>
+  `;
+
+  popup.classList.remove("hidden");
+
+  document.getElementById("closeBtn").onclick = () => {
+    popup.classList.add("hidden");
+  };
+}
 });
