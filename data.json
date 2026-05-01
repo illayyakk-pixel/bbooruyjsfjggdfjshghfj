@@ -4,6 +4,7 @@
     "category": "food",
     "rating": "red",
     "description": "...",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/2/21/Nestle_logo.svg",
     "products": ["KitKat", "Nescafé"],
     "notes": "..."
   }
@@ -15,6 +16,7 @@
     "category": "furniture",
     "rating": "green",
     "description": "...",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/2/21/Nestle_logo.svg",
     "products": ["Ikea restaurant", "Ikea furniture"],
     "notes": "..."
   }
@@ -26,6 +28,7 @@
     "category": "technology",
     "rating": "red",
     "description": "...",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/2/21/Nestle_logo.svg",
     "products": ["iPhone", "iPad"],
     "notes": "..."
   }
