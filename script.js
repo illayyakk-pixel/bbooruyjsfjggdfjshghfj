@@ -50,8 +50,8 @@ document.addEventListener("click", function (e) {
             (c.category && c.category.toLowerCase() === selectedCategory);
 
           if (!hasSearch) {
-            return categoryMatch;
-          }
+  return false; // prevents dropdown when only category is selected
+}
 
           const nameMatch = normalize(c.name).includes(normalize(value));
 
