@@ -22,6 +22,7 @@ document.addEventListener("click", function (e) {
 const resultsList = document.getElementById("resultsList");
 if (resultsList) {
   resultsList.innerHTML = "<p>Loading...</p>";
+  resultsList.innerHTML = ""; // 🔥 clears "Loading..."
 }
   
   fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSgCX7yjBf65usJKdHP6YbfSQd4Ru3it7KvyKde6SN7SIxdH9vln-tCws3ulVidW1wpvlAoL0MtlNHA/pub?output=csv")
