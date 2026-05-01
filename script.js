@@ -33,6 +33,7 @@ if (resultsList) {
   });
 
   function parseCSV(csv) {
+    console.log("PARSED COMPANY:", obj);
   const lines = csv.split("\n").map(l => l.trim()).filter(l => l);
 
   const headers = lines[0].split(",");
