@@ -13,6 +13,9 @@ fetch("./data.json")
   .then(data => {
     console.log("DATA LOADED:", data);
     companies = data;
+
+    // ✅ START YOUR APP ONLY AFTER DATA LOADS
+    initApp();
   })
   .catch(err => console.error("FETCH ERROR:", err));
 
