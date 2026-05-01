@@ -8,28 +8,24 @@ function normalize(str) {
 
 let companies = [];
 
+// Load JSON
 fetch("./data.json")
   .then(res => res.json())
   .then(data => {
     console.log("DATA LOADED:", data);
     companies = data;
-
-    // ✅ START YOUR APP ONLY AFTER DATA LOADS
     initApp();
   })
   .catch(err => console.error("FETCH ERROR:", err));
 
-// Homepage elements
-const searchInput = document.getElementById("searchInput");
-const suggestions = document.getElementById("suggestions");
-
-// Suggestions (homepage)
 function initApp() {
 
+  // Homepage elements
   const searchInput = document.getElementById("searchInput");
   const suggestions = document.getElementById("suggestions");
 
   if (searchInput && suggestions) {
+
     searchInput.addEventListener("input", function () {
       const value = this.value.trim();
       suggestions.innerHTML = "";
@@ -78,37 +74,55 @@ function initApp() {
         suggestions.appendChild(li);
       });
     });
+
+    // Enter key
+    searchInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        goToResults();
+      }
+    });
   }
 
-  // 👉 DO THE SAME FOR RESULTS PAGE LOGIC IF YOU HAVE IT
-});
-  });
+  // Results page
+  const resultsList = document.getElementById("resultsList");
 
-const categoryFilter = document.getElementById("categoryFilter");
+  if (resultsList) {
+    const params = new URLSearchParams(window.location.search);
+    const search = (params.get("search") || "").trim();
+    const category = params.get("category") || "all";
 
-if (categoryFilter && searchInput) {
-  categoryFilter.addEventListener("change", function () {
-    searchInput.dispatchEvent(new Event("input"));
-  });
-}
+    const filtered = companies.filter(function (c) {
+      const nameMatch = normalize(c.name).includes(normalize(search));
+      const categoryMatch =
+        category === "all" || c.category === category;
 
-  // Enter key
-  searchInput.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-      goToResults();
+      return nameMatch && categoryMatch;
+    });
+
+    if (filtered.length === 0) {
+      resultsList.innerHTML = "<p>No companies found.</p>";
     }
-  });
+
+    filtered.forEach(function (company) {
+      const li = document.createElement("li");
+
+      const colorClass = company.rating === "green" ? "green" : "red";
+
+      li.innerHTML = `
+        <span class="circle ${colorClass}"></span>
+        ${company.name}
+      `;
+
+      li.onclick = function () {
+        showPopup(company);
+      };
+
+      resultsList.appendChild(li);
+    });
+  }
 }
 
-function goBack() {
-  window.history.back();
-}
-
-function goHome() {
-  window.location.href = "index.html";
-}
-
-// Go to results
+// Search button
 function goToResults() {
   const query = document.getElementById("searchInput")?.value.trim() || "";
   const category = document.getElementById("categoryFilter")?.value || "all";
@@ -116,97 +130,3 @@ function goToResults() {
   window.location.href =
     "results.html?search=" + query + "&category=" + category;
 }
-
-// Results page
-const resultsList = document.getElementById("resultsList");
-
-if (resultsList) {
-  const params = new URLSearchParams(window.location.search);
-  const search = (params.get("search") || "").trim();
-  const category = params.get("category") || "all";
-
-  const filtered = companies.filter(function (c) {
-    const nameMatch = normalize(c.name).includes(normalize(search));
-    const categoryMatch =
-      category === "all" || c.category === category;
-
-    return nameMatch && categoryMatch;
-  });
-
-  if (filtered.length === 0) {
-    resultsList.innerHTML = "<p>No companies found.</p>";
-  }
-
-  filtered.forEach(function (company) {
-    const li = document.createElement("li");
-    const colorClass = company.rating === "green" ? "green" : "red";
-
-    li.innerHTML = `
-      <span class="circle ${colorClass}"></span>
-      ${company.name}
-`;
-    li.onclick = function () {
-      showPopup(company);
-    };
-
-    resultsList.appendChild(li);
-  });
-}
-
-// Popup
-function showPopup(company) {
-  const popup = document.getElementById("popup");
-  const popupBody = document.getElementById("popupBody");
-
-  if (!popup || !popupBody) return;
-
-  const colorClass = company.rating === "green" ? "green" : "red";
-  const label = company.rating === "green" ? "Green" : "Red";
-
-popupBody.innerHTML = `
-  <img src="${company.logo}" alt="${company.name}" style="width:80px; margin-bottom:10px;">
-
-  <div>
-    <span class="circle ${colorClass}"></span>
-    <strong>${label}</strong>
-  </div>
-
-  <p>${company.description}</p>
-
-${Array.isArray(company.products) ? `
-  <h4>Products:</h4>
-  <ul>
-    ${company.products.map(p => `<li>${p}</li>`).join("")}
-  </ul>
-` : ""}
-
-${company.notes ? `<p><strong>Notes:</strong> ${company.notes}</p>` : ""}
-
-`;
-
-  popup.classList.remove("hidden");
-
-  const closeBtn = document.getElementById("closeBtn");
-  if (closeBtn) {
-    closeBtn.onclick = function () {
-      popup.classList.add("hidden");
-    };
-  }
-
-  // click outside
-  popup.onclick = function (e) {
-    if (e.target === popup) {
-      popup.classList.add("hidden");
-    }
-  };
-}
-
-// ESC works globally
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape") {
-    const popup = document.getElementById("popup");
-    if (popup) {
-      popup.classList.add("hidden");
-    }
-  }
-});
