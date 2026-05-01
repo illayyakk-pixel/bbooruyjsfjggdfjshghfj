@@ -10,17 +10,21 @@ let companies = [];
 
 // Load JSON
 fetch("./data.json")
-  .then(res => res.json())
-  .then(data => {
+  .then(function(res) {
+    return res.json();
+  })
+  .then(function(data) {
     console.log("DATA LOADED:", data);
     companies = data;
     initApp();
   })
-  .catch(err => console.error("FETCH ERROR:", err));
+  .catch(function(err) {
+    console.error("FETCH ERROR:", err);
+  });
 
+// Initialize app AFTER data loads
 function initApp() {
 
-  // Homepage elements
   const searchInput = document.getElementById("searchInput");
   const suggestions = document.getElementById("suggestions");
 
@@ -42,11 +46,8 @@ function initApp() {
       }
 
       const results = companies.filter(function (c) {
-        const nameMatch = normalize(c.name).includes(normalize(value));
-        const categoryMatch =
-          selectedCategory === "all" || c.category === selectedCategory;
-
-        return nameMatch && categoryMatch;
+        return normalize(c.name).includes(normalize(value)) &&
+          (selectedCategory === "all" || c.category === selectedCategory);
       });
 
       if (results.length === 0) {
@@ -61,10 +62,8 @@ function initApp() {
 
         const colorClass = company.rating === "green" ? "green" : "red";
 
-        li.innerHTML = `
-          <span class="circle ${colorClass}"></span>
-          ${company.name}
-        `;
+        li.innerHTML =
+          '<span class="circle ' + colorClass + '"></span> ' + company.name;
 
         li.onclick = function () {
           window.location.href =
@@ -75,7 +74,6 @@ function initApp() {
       });
     });
 
-    // Enter key
     searchInput.addEventListener("keydown", function (e) {
       if (e.key === "Enter") {
         goToResults();
@@ -83,7 +81,6 @@ function initApp() {
     });
   }
 
-  // Results page
   const resultsList = document.getElementById("resultsList");
 
   if (resultsList) {
@@ -92,11 +89,8 @@ function initApp() {
     const category = params.get("category") || "all";
 
     const filtered = companies.filter(function (c) {
-      const nameMatch = normalize(c.name).includes(normalize(search));
-      const categoryMatch =
-        category === "all" || c.category === category;
-
-      return nameMatch && categoryMatch;
+      return normalize(c.name).includes(normalize(search)) &&
+        (category === "all" || c.category === category);
     });
 
     if (filtered.length === 0) {
@@ -108,10 +102,8 @@ function initApp() {
 
       const colorClass = company.rating === "green" ? "green" : "red";
 
-      li.innerHTML = `
-        <span class="circle ${colorClass}"></span>
-        ${company.name}
-      `;
+      li.innerHTML =
+        '<span class="circle ' + colorClass + '"></span> ' + company.name;
 
       li.onclick = function () {
         showPopup(company);
@@ -129,4 +121,9 @@ function goToResults() {
 
   window.location.href =
     "results.html?search=" + query + "&category=" + category;
+}
+
+// Navbar home button
+function goHome() {
+  window.location.href = "index.html";
 }
