@@ -57,8 +57,8 @@ if (resultsList) {
       obj.products = obj.products.split(",").map(p => p.trim());
     }
 
-    if (obj.category) {
-  obj.category = obj.category
+    if (!Array.isArray(obj.category)) {
+  obj.category = [obj.category].filter(Boolean);
     .split(",")
     .map(c => c.trim().toLowerCase())
     .filter(c => c);
@@ -98,7 +98,7 @@ if (lastUpdatedEl && cachedTime) {
         const categoryMatch =
   selectedCategory === "all" ||
   (Array.isArray(c.category) &&
-   c.category.some(cat => cat === selectedCategory));
+   c.category.includes(selectedCategory));
 
           if (!hasSearch) {
   return false; // prevents dropdown when only category is selected
@@ -171,23 +171,23 @@ if (lastUpdatedEl && cachedTime) {
 
       const filtered = companies.filter(c => {
 
-      const categoryMatch =
+  const categoryMatch =
   selectedCategory === "all" ||
   (Array.isArray(c.category) &&
-   c.category.some(cat => cat === selectedCategory));
+   c.category.includes(selectedCategory));
 
-        if (!hasSearch) {
-  return false; // prevents dropdown when only category is selected
-}
+  if (!hasSearch) {
+    return categoryMatch;
+  }
 
-        const nameMatch = normalize(c.name).includes(normalize(search));
+  const nameMatch = normalize(c.name).includes(normalize(search));
 
-        const productMatch =
-          Array.isArray(c.products) &&
-          c.products.some(p => normalize(p).includes(normalize(search)));
+  const productMatch =
+    Array.isArray(c.products) &&
+    c.products.some(p => normalize(p).includes(normalize(search)));
 
-        return (nameMatch || productMatch) && categoryMatch;
-      });
+  return (nameMatch || productMatch) && categoryMatch;
+});
 
       if (filtered.length === 0) {
         resultsList.innerHTML = "<p>No companies found.</p>";
