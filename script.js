@@ -33,7 +33,6 @@ if (resultsList) {
   });
 
   function parseCSV(csv) {
-    console.log("PARSED COMPANY:", obj);
   const lines = csv.split("\n").map(l => l.trim()).filter(l => l);
 
   const headers = lines[0].split(",");
@@ -59,7 +58,10 @@ if (resultsList) {
     }
 
     if (obj.category) {
-  obj.category = obj.category.split(",").map(c => c.trim().toLowerCase());
+  obj.category = obj.category
+    .split(",")
+    .map(c => c.trim().toLowerCase())
+    .filter(c => c);
 }
 
     return obj;
@@ -93,10 +95,10 @@ if (lastUpdatedEl && cachedTime) {
 
         const results = companies.filter(c => {
 
-          const categoryMatch =
+        const categoryMatch =
   selectedCategory === "all" ||
   (Array.isArray(c.category) &&
-   c.category.includes(selectedCategory));
+   c.category.some(cat => cat === selectedCategory));
 
           if (!hasSearch) {
   return false; // prevents dropdown when only category is selected
@@ -169,9 +171,10 @@ if (lastUpdatedEl && cachedTime) {
 
       const filtered = companies.filter(c => {
 
-        const categoryMatch =
-          category === "all" ||
-          (c.category && c.category.toLowerCase() === category);
+      const categoryMatch =
+  selectedCategory === "all" ||
+  (Array.isArray(c.category) &&
+   c.category.some(cat => cat === selectedCategory));
 
         if (!hasSearch) {
   return false; // prevents dropdown when only category is selected
