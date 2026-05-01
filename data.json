@@ -1,10 +1,32 @@
 [
   {
-    "name": "Test Company",
+    "name": "Nestlé",
     "category": "food",
+    "rating": "red",
+    "description": "...",
+    "products": ["KitKat", "Nescafé"],
+    "notes": "..."
+  }
+]
+
+[
+  {
+    "name": "IKEA",
+    "category": "furniture",
     "rating": "green",
-    "description": "Test description",
-    "products": ["Test Product"],
-    "notes": "Test note"
+    "description": "...",
+    "products": ["Ikea restaurant", "Ikea furniture"],
+    "notes": "..."
+  }
+]
+
+[
+  {
+    "name": "Apple",
+    "category": "technology",
+    "rating": "red",
+    "description": "...",
+    "products": ["iPhone", "iPad"],
+    "notes": "..."
   }
 ]
