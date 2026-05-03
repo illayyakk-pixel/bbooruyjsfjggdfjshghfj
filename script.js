@@ -238,7 +238,10 @@ document.addEventListener("DOMContentLoaded", function () {
         <strong>${label}</strong>
       </div>
 
-      <p>${company.description}</p>
+      <div class="why-section">
+        <button class="why-btn">Why?</button>
+        <div class="why-text">${company.description}</div>
+      </div>
 
       ${Array.isArray(company.products) ? `
         <h4>Products:</h4>
