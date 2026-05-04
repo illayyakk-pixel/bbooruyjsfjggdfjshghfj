@@ -197,8 +197,10 @@ const nameMatch =
   normalize(transliterate(c.name)).includes(searchValue);
         
         const productMatch =
-          Array.isArray(c.products) &&
-          c.products.some(p => normalize(p).includes(normalize(search)));
+  Array.isArray(c.products) &&
+  c.products.some(p =>
+    normalize(transliterate(p)).includes(searchValue)
+  );
 
         return (nameMatch || productMatch) && categoryMatch;
       });
