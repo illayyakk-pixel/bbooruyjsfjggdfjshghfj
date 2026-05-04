@@ -312,13 +312,26 @@ function showPopup(company) {
   const list = popupBody.querySelector("#productList");
 
   if (btn && list) {
-    btn.onclick = () => {
+  let expanded = false;
+
+  btn.onclick = () => {
+    if (!expanded) {
+      // expand
       list.innerHTML = company.products
         .map(p => `<li>${p}</li>`)
         .join("");
-      btn.remove();
-    };
-  }
+      btn.textContent = "Show less";
+      expanded = true;
+    } else {
+      // collapse
+      list.innerHTML = company.products
+        .slice(0, 5)
+        .map(p => `<li>${p}</li>`)
+        .join("");
+      btn.textContent = "Show more";
+      expanded = false;
+    }
+  };
 }
 
 // ESC closes popup
