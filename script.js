@@ -241,20 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const colorClass = company.rating === "green" ? "green" : "red";
     const label = company.rating === "green" ? "Green" : "Red";
 
-    popupBody.innerHTML = `
-      ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
-
-      <div>
-        <span class="circle ${colorClass}"></span>
-        <strong>${label}</strong>
-      </div>
-
-      <div class="why-section">
-        <button class="why-btn">Why?</button>
-        <div class="why-text">${company.description}</div>
-      </div>
-
-      const maxProducts = 5;
+const maxProducts = 5;
 
 const productsHTML = Array.isArray(company.products)
   ? `
@@ -269,6 +256,35 @@ const productsHTML = Array.isArray(company.products)
     }
   `
   : "";
+    
+    popupBody.innerHTML = `
+      ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
+
+      <div>
+        <span class="circle ${colorClass}"></span>
+        <strong>${label}</strong>
+      </div>
+
+      <div class="why-section">
+        <button class="why-btn">Why?</button>
+        <div class="why-text">${company.description}</div>
+      </div>
+
+     ${productsHTML}
+
+     setTimeout(() => {
+  const btn = document.getElementById("showMoreBtn");
+  const list = document.getElementById("productList");
+
+  if (btn && list) {
+    btn.onclick = () => {
+      list.innerHTML = company.products
+        .map(p => `<li>${p}</li>`)
+        .join("");
+      btn.remove();
+    };
+  }
+}, 0);
 
       ${company.notes ? `<p><strong>Notes:</strong> ${company.notes}</p>` : ""}
     `;
