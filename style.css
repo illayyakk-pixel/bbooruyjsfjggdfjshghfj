@@ -230,24 +230,16 @@ li:hover {
 }
 
 .circle {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   display: inline-block;
   margin-right: 8px;
 }
 
-.green {
-  background: #2ecc71;
-}
-
-.red {
-  background: #e74c3c;
-}
-
-.circle.orange {
-  background: #orange;
-}
+.circle.green { background: #2ecc71; }
+.circle.red { background: #e74c3c; }
+.circle.orange { background: #f39c12; }
 
 .company-logo {
   width: 80px;
