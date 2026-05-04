@@ -114,8 +114,11 @@ document.addEventListener("DOMContentLoaded", function () {
         results.slice(0, 5).forEach(company => {
           const li = document.createElement("li");
 
-          const colorClass = company.rating === "green" ? "green" : "red";
+let colorClass = "red";
 
+if (company.rating === "green") colorClass = "green";
+if (company.rating === "orange") colorClass = "orange";
+          
           li.innerHTML = `
             <span class="circle ${colorClass}"></span>
             ${company.name}
