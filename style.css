@@ -185,11 +185,27 @@ li:hover {
 
 .why-btn {
   margin-top: 10px;
-  padding: 6px 12px;
+  padding: 8px 14px;
   border-radius: 8px;
   border: none;
-  background: #eee;
+
+  background: #2d6cdf;   /* 🔵 blue by default */
+  color: white;
+
   cursor: pointer;
+  font-weight: 500;
+
+  transition: background 0.2s ease;
+  
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.why-btn:hover {
+  background: #1f4fbf;   /* 🔵 darker blue on hover */
+}
+
+.why-btn:active {
+  transform: scale(0.98);
 }
 
 .why-text {
