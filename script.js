@@ -221,63 +221,16 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   // 🪟 Popup
-  function showPopup(company) {
+// 🪟 Popup
+function showPopup(company) {
   const popup = document.getElementById("popup");
   const popupBody = document.getElementById("popupBody");
 
   if (!popup || !popupBody) return;
 
-  const colorClass =
-    company.rating === "green"
-      ? "green"
-      : company.rating === "orange"
-      ? "orange"
-      : "red";
-
-  const label =
-    company.rating === "green"
-      ? "Green"
-      : company.rating === "orange"
-      ? "Orange"
-      : "Red";
-
-  const maxProducts = 5;
-
-  const productsHTML = Array.isArray(company.products)
-    ? `
-      <h4>Products:</h4>
-      <ul id="productList">
-        ${company.products
-          .slice(0, maxProducts)
-          .map(p => `<li>${p}</li>`)
-          .join("")}
-      </ul>
-      ${
-        company.products.length > maxProducts
-          ? `<button id="showMoreBtn">Show more</button>`
-          : ""
-      }
-    `
-    : "";
-
   popupBody.innerHTML = `
-    ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
-
-    <div>
-      <span class="circle ${colorClass}"></span>
-      <strong>${label}</strong>
-    </div>
-
-    <div class="why-section">
-      <button class="why-btn">Why?</button>
-      <div class="why-text" style="display:none;">
-        ${company.description}
-      </div>
-    </div>
-
-    ${productsHTML}
-
-    ${company.notes ? `<p><strong>Notes:</strong> ${company.notes}</p>` : ""}
+    <h3>${company.name}</h3>
+    <p>${company.description}</p>
   `;
 
   popup.classList.remove("hidden");
@@ -285,72 +238,12 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("closeBtn").onclick = () => {
     popup.classList.add("hidden");
   };
-
-  popup.onclick = function (e) {
-    if (e.target === popup) {
-      popup.classList.add("hidden");
-    }
-  };
-
-  // WHY toggle
-  const whyBtn = popupBody.querySelector(".why-btn");
-  const whyText = popupBody.querySelector(".why-text");
-
-  if (whyBtn && whyText) {
-    whyBtn.onclick = () => {
-      whyText.style.display =
-        whyText.style.display === "block" ? "none" : "block";
-    };
-  }
-
-  // SHOW MORE
-  const btn = popupBody.querySelector("#showMoreBtn");
-  const list = popupBody.querySelector("#productList");
-
-  if (btn && list) {
-    btn.onclick = () => {
-      list.innerHTML = company.products
-        .map(p => `<li>${p}</li>`)
-        .join("");
-      btn.remove();
-    };
-  }
 }
-      ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
-      <div>
-        <span class="circle ${colorClass}"></span>
-        <strong>${label}</strong>
-      </div>
 
-      <div class="why-section">
-        <button class="why-btn">Why?</button>
-        <div class="why-text">${company.description}</div>
-      </div>
-
-     ${productsHTML}
-
-      ${company.notes ? `<p><strong>Notes:</strong> ${company.notes}</p>` : ""}
-    `;
-
-    popup.classList.remove("hidden");
-
-    document.getElementById("closeBtn").onclick = () => {
-      popup.classList.add("hidden");
-    };
-
-    popup.onclick = function (e) {
-      if (e.target === popup) {
-        popup.classList.add("hidden");
-      }
-    };
+// ESC closes popup
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    const popup = document.getElementById("popup");
+    if (popup) popup.classList.add("hidden");
   }
-
-  // ESC closes popup
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      const popup = document.getElementById("popup");
-      if (popup) popup.classList.add("hidden");
-    }
-  });
-
 });
