@@ -260,7 +260,6 @@ document.addEventListener("DOMContentLoaded", function () {
     `
     : "";
 
-  // ✅ ONLY HTML HERE
   popupBody.innerHTML = `
     ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
 
@@ -293,9 +292,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  // ✅ NOW we add JS AFTER rendering
-
-  // Why toggle
+  // WHY toggle
   const whyBtn = popupBody.querySelector(".why-btn");
   const whyText = popupBody.querySelector(".why-text");
 
@@ -306,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
-  // Show more products
+  // SHOW MORE
   const btn = popupBody.querySelector("#showMoreBtn");
   const list = popupBody.querySelector("#productList");
 
