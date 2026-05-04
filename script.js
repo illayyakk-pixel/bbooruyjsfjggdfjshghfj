@@ -1,5 +1,3 @@
-console.log("SCRIPT RUNNING");
-
 document.addEventListener("DOMContentLoaded", function () {
 
   // 🔒 Close suggestions when clicking outside
