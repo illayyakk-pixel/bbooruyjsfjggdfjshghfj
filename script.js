@@ -191,8 +191,11 @@ if (company.rating === "orange") colorClass = "orange";
           return categoryMatch;
         }
 
-        const nameMatch = normalize(c.name).includes(normalize(search));
+const searchValue = normalize(transliterate(search));
 
+const nameMatch =
+  normalize(transliterate(c.name)).includes(searchValue);
+        
         const productMatch =
           Array.isArray(c.products) &&
           c.products.some(p => normalize(p).includes(normalize(search)));
