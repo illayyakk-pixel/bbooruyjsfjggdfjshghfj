@@ -341,5 +341,3 @@ document.addEventListener("keydown", function (e) {
     if (popup) popup.classList.add("hidden");
   }
 });
-
-}); // ✅ THIS closes DOMContentLoaded — DO NOT DELETE
