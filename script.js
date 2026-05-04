@@ -270,9 +270,9 @@ function showPopup(company) {
     ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
 
     <div>
-      <span class="circle ${colorClass}"></span>
-      <strong>${label}</strong>
-    </div>
+  <span class="circle ${colorClass}"></span>
+  <strong>${label}</strong>
+</div>
 
     <div class="why-section">
       <button class="why-btn">Why?</button>
