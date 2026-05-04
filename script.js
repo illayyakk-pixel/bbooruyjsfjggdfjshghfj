@@ -226,7 +226,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const popupBody = document.getElementById("popupBody");
 
     setTimeout(() => {
-  const btn = document.querySelector(".why-btn");
   const text = document.querySelector(".why-text");
 
   if (btn && text) {
@@ -258,6 +257,21 @@ const productsHTML = Array.isArray(company.products)
   : "";
     
     popupBody.innerHTML = `
+    // Show more products
+    setTimeout(() => {
+  const btn = document.getElementById("showMoreBtn");
+  const list = document.getElementById("productList");
+
+  if (btn && list) {
+    btn.onclick = () => {
+      list.innerHTML = company.products
+        .map(p => `<li>${p}</li>`)
+        .join("");
+      btn.remove();
+    };
+  }
+}, 0);
+  const btn = document.querySelector(".why-btn");
       ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
 
       <div>
@@ -271,20 +285,6 @@ const productsHTML = Array.isArray(company.products)
       </div>
 
      ${productsHTML}
-
-     setTimeout(() => {
-  const btn = document.getElementById("showMoreBtn");
-  const list = document.getElementById("productList");
-
-  if (btn && list) {
-    btn.onclick = () => {
-      list.innerHTML = company.products
-        .map(p => `<li>${p}</li>`)
-        .join("");
-      btn.remove();
-    };
-  }
-}, 0);
 
       ${company.notes ? `<p><strong>Notes:</strong> ${company.notes}</p>` : ""}
     `;
