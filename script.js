@@ -222,60 +222,93 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 🪟 Popup
   function showPopup(company) {
-    const popup = document.getElementById("popup");
-    const popupBody = document.getElementById("popupBody");
+  const popup = document.getElementById("popup");
+  const popupBody = document.getElementById("popupBody");
 
-    setTimeout(() => {
-  const text = document.querySelector(".why-text");
+  if (!popup || !popupBody) return;
 
-  if (btn && text) {
-    btn.onclick = () => {
-      text.style.display = text.style.display === "block" ? "none" : "block";
-    };
-  }
-}, 0);
+  const colorClass =
+    company.rating === "green"
+      ? "green"
+      : company.rating === "orange"
+      ? "orange"
+      : "red";
 
-    if (!popup || !popupBody) return;
+  const label =
+    company.rating === "green"
+      ? "Green"
+      : company.rating === "orange"
+      ? "Orange"
+      : "Red";
 
-    const colorClass = company.rating === "green" ? "green" : "red";
-    const label = company.rating === "green" ? "Green" : "Red";
+  const maxProducts = 5;
 
-const maxProducts = 5;
+  const productsHTML = Array.isArray(company.products)
+    ? `
+      <h4>Products:</h4>
+      <ul id="productList">
+        ${company.products
+          .slice(0, maxProducts)
+          .map(p => `<li>${p}</li>`)
+          .join("")}
+      </ul>
+      ${
+        company.products.length > maxProducts
+          ? `<button id="showMoreBtn">Show more</button>`
+          : ""
+      }
+    `
+    : "";
 
-const productsHTML = Array.isArray(company.products)
-  ? `
-    <h4>Products:</h4>
-    <ul id="productList">
-      ${company.products.slice(0, maxProducts).map(p => `<li>${p}</li>`).join("")}
-    </ul>
-    ${
-      company.products.length > maxProducts
-        ? `<button id="showMoreBtn">Show more</button>`
-        : ""
+  // ✅ ONLY HTML HERE
+  popupBody.innerHTML = `
+    ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
+
+    <div>
+      <span class="circle ${colorClass}"></span>
+      <strong>${label}</strong>
+    </div>
+
+    <div class="why-section">
+      <button class="why-btn">Why?</button>
+      <div class="why-text" style="display:none;">
+        ${company.description}
+      </div>
+    </div>
+
+    ${productsHTML}
+
+    ${company.notes ? `<p><strong>Notes:</strong> ${company.notes}</p>` : ""}
+  `;
+
+  popup.classList.remove("hidden");
+
+  document.getElementById("closeBtn").onclick = () => {
+    popup.classList.add("hidden");
+  };
+
+  popup.onclick = function (e) {
+    if (e.target === popup) {
+      popup.classList.add("hidden");
     }
-  `
-  : "";
-    
-    popupBody.innerHTML = `
-    // Show more products
-    setTimeout(() => {
-  // Why button logic
-setTimeout(() => {
-  const btn = document.querySelector(".why-btn");
-  const text = document.querySelector(".why-text");
+  };
 
-  if (btn && text) {
-    btn.onclick = () => {
-      text.style.display =
-        text.style.display === "block" ? "none" : "block";
+  // ✅ NOW we add JS AFTER rendering
+
+  // Why toggle
+  const whyBtn = popupBody.querySelector(".why-btn");
+  const whyText = popupBody.querySelector(".why-text");
+
+  if (whyBtn && whyText) {
+    whyBtn.onclick = () => {
+      whyText.style.display =
+        whyText.style.display === "block" ? "none" : "block";
     };
   }
-}, 0);
 
-// Show more products logic
-setTimeout(() => {
-  const btn = document.getElementById("showMoreBtn");
-  const list = document.getElementById("productList");
+  // Show more products
+  const btn = popupBody.querySelector("#showMoreBtn");
+  const list = popupBody.querySelector("#productList");
 
   if (btn && list) {
     btn.onclick = () => {
