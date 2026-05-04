@@ -254,12 +254,21 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="why-text">${company.description}</div>
       </div>
 
-      ${Array.isArray(company.products) ? `
-        <h4>Products:</h4>
-        <ul>
-          ${company.products.map(p => `<li>${p}</li>`).join("")}
-        </ul>
-      ` : ""}
+      const maxProducts = 5;
+
+const productsHTML = Array.isArray(company.products)
+  ? `
+    <h4>Products:</h4>
+    <ul id="productList">
+      ${company.products.slice(0, maxProducts).map(p => `<li>${p}</li>`).join("")}
+    </ul>
+    ${
+      company.products.length > maxProducts
+        ? `<button id="showMoreBtn">Show more</button>`
+        : ""
+    }
+  `
+  : "";
 
       ${company.notes ? `<p><strong>Notes:</strong> ${company.notes}</p>` : ""}
     `;
