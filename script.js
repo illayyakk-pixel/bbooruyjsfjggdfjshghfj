@@ -225,6 +225,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const popup = document.getElementById("popup");
     const popupBody = document.getElementById("popupBody");
 
+    setTimeout(() => {
+  const btn = document.querySelector(".why-btn");
+  const text = document.querySelector(".why-text");
+
+  if (btn && text) {
+    btn.onclick = () => {
+      text.style.display = text.style.display === "block" ? "none" : "block";
+    };
+  }
+}, 0);
+
     if (!popup || !popupBody) return;
 
     const colorClass = company.rating === "green" ? "green" : "red";
