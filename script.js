@@ -259,6 +259,21 @@ const productsHTML = Array.isArray(company.products)
     popupBody.innerHTML = `
     // Show more products
     setTimeout(() => {
+  // Why button logic
+setTimeout(() => {
+  const btn = document.querySelector(".why-btn");
+  const text = document.querySelector(".why-text");
+
+  if (btn && text) {
+    btn.onclick = () => {
+      text.style.display =
+        text.style.display === "block" ? "none" : "block";
+    };
+  }
+}, 0);
+
+// Show more products logic
+setTimeout(() => {
   const btn = document.getElementById("showMoreBtn");
   const list = document.getElementById("productList");
 
@@ -271,7 +286,6 @@ const productsHTML = Array.isArray(company.products)
     };
   }
 }, 0);
-  const btn = document.querySelector(".why-btn");
       ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
 
       <div>
