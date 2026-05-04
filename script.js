@@ -317,7 +317,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 }, 0);
       ${company.logo ? `<img src="${company.logo}" style="width:80px; margin-bottom:10px;">` : ""}
-
       <div>
         <span class="circle ${colorClass}"></span>
         <strong>${label}</strong>
