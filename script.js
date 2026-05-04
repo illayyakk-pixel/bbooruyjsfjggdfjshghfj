@@ -223,6 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 🪟 Popup
 // 🪟 Popup
 // 🪟 Popup
+// 🪟 Popup
 function showPopup(company) {
   const popup = document.getElementById("popup");
   const popupBody = document.getElementById("popupBody");
@@ -284,12 +285,10 @@ function showPopup(company) {
 
   popup.classList.remove("hidden");
 
-  // Close button
   document.getElementById("closeBtn").onclick = () => {
     popup.classList.add("hidden");
   };
 
-  // Click outside
   popup.onclick = function (e) {
     if (e.target === popup) {
       popup.classList.add("hidden");
@@ -307,31 +306,30 @@ function showPopup(company) {
     };
   }
 
-  // SHOW MORE products
+  // SHOW MORE / LESS
   const btn = popupBody.querySelector("#showMoreBtn");
   const list = popupBody.querySelector("#productList");
 
   if (btn && list) {
-  let expanded = false;
+    let expanded = false;
 
-  btn.onclick = () => {
-    if (!expanded) {
-      // expand
-      list.innerHTML = company.products
-        .map(p => `<li>${p}</li>`)
-        .join("");
-      btn.textContent = "Show less";
-      expanded = true;
-    } else {
-      // collapse
-      list.innerHTML = company.products
-        .slice(0, 5)
-        .map(p => `<li>${p}</li>`)
-        .join("");
-      btn.textContent = "Show more";
-      expanded = false;
-    }
-  };
+    btn.onclick = () => {
+      if (!expanded) {
+        list.innerHTML = company.products
+          .map(p => `<li>${p}</li>`)
+          .join("");
+        btn.textContent = "Show less";
+        expanded = true;
+      } else {
+        list.innerHTML = company.products
+          .slice(0, 5)
+          .map(p => `<li>${p}</li>`)
+          .join("");
+        btn.textContent = "Show more";
+        expanded = false;
+      }
+    };
+  }
 }
 
 // ESC closes popup
@@ -342,4 +340,4 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-});
+}); // 🔥 DO NOT REMOVE
